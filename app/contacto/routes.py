@@ -12,7 +12,7 @@ def index():
     return render_template('contacto/contacto.html',title=title)
 
 @bp.route('/submit', methods=['POST'])
-def submit_form():
+def submit():
     name = request.form['name']
     email = request.form['email']
     phone = request.form['phone']
