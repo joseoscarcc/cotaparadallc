@@ -1,0 +1,6 @@
+gunicorn
+flask
+sqlalchemy
+mercadopago
+flask_sqlalchemy
+psycopg2

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+  <!-- Projects Section-->
+  <section class="py-5">
+    <div class="container px-5 mb-5">
+        <div class="text-center mb-5">
+            <h1 class="display-5 fw-bolder mb-0"><span class="text-gradient d-inline">Libro</span></h1>
+        </div>
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-11 col-xl-9 col-xxl-8">
+                <!-- Project Card 1-->
+                <div class="container justify-content-center">
+                    <div class="row mx-auto">
+                      <div class="col-12 col-sm-8 col-md-6 col-lg-12">
+                        <div class="card">
+                          
+                          <div class="card-img-overlay d-flex justify-content-end">
+                            <a href="#" class="card-link text-danger like">
+                              <i class="fas fa-heart"></i>
+                            </a>
+                          </div>
+                          <img class="card-img mx-auto" src="{{url_for('static', filename='portada01.png')}}" style="width: 250px; height: auto;">
+                          <div class="card-body">
+                            <h4 class="card-title">Quiero Viajar Más</h4>
+                            <h6 class="card-subtitle mb-2 text-muted">Promo: PREVENTA</h6>
+                            <p class="card-text">
+                              En este libro, te invito a un recorrido a través de 21 viajes que he tenido la fortuna de realizar desde 2008 hasta 2023. A lo largo de estas aventuras, he aprendido valiosas lecciones sobre cada uno de los destinos que he visitado. Además, he tenido el placer de explorar la riqueza culinaria de cada lugar, probando una variedad de platos que han dejado una huella en mi paladar. Cada capítulo de este libro es una ventana a un mundo diferente, lleno de historias, culturas y experiencias únicas. A medida que te sumerjas en estas páginas, te llevaré de la mano a través de mis travesías, compartiendo anécdotas, descubrimientos y momentos inolvidables que han enriquecido mi vida como viajero. Espero que este libro te inspire a emprender tus propias aventuras y a descubrir la belleza del mundo que nos rodea. A través de mis relatos, te invito a saborear los sabores auténticos que he disfrutado en mi camino y a sumergirte en las maravillas de la exploración. Gracias por acompañarme en este viaje literario. Espero que disfrutes de cada página tanto como yo disfruté de cada destino. ¡Bienvenido a un mundo de descubrimiento y aventura!             </p>
+                            <div class="options text-center">
+                              
+                            </div>
+                            <div class="buy d-flex justify-content-between align-items-center">
+                              <div class="price text-success"><h5 class="mt-4">$215</h5></div>
+                          
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="container justify-content-center">
+                    <div class="row mx-auto">
+                      <div class="col-12 col-sm-8 col-md-6 col-lg-12">
+                        <div class="card mx-auto">
+                            
+                            <div class="card-body">
+                                <h4 class="card-title">Datos de entrega</h4>
+                                <form method="POST">
+                                    <!-- Campo para el nombre -->
+                                    <label for="nombre">Nombre:</label>
+                                    <input type="text" id="nombre" name="nombre" required><br><br>
+                    
+                                    <!-- Campo para el apellido -->
+                                    <label for="apellido">Apellido:</label>
+                                    <input type="text" id="apellido" name="apellido" required><br><br>
+                    
+                                    <!-- Campo para el teléfono -->
+                                    <label for="telefono">Teléfono:</label>
+                                    <input type="tel" id="telefono" name="telefono" pattern="[0-9]{10}" placeholder="Ejemplo: 1234567890" required><br><br>
+                    
+                                    <!-- Campo para el correo electrónico -->
+                                    <label for="correo">Correo Electrónico:</label>
+                                    <input type="email" id="correo" name="correo" required><br><br>
+
+                                      <!-- Botón para enviar el formulario -->
+                                    <input type="submit" value="Siguiente" formaction="{{ url_for('checkoutmp.carrito') }}">
+                                  </form>
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>       
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Call to action section-->
+<section class="py-5 bg-gradient-primary-to-secondary text-white">
+    <div class="container px-5 my-5">
+        <div class="text-center">
+            <h2 class="display-4 fw-bolder mb-4">Let's build something together</h2>
+            <a class="btn btn-outline-light btn-lg px-5 py-3 fs-6 fw-bolder" href="contact.html">Contact me</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
