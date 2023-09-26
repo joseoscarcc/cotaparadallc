@@ -27,10 +27,4 @@ def create_app(config_class=Config):
     from app.libro import bp as libro_bp
     app.register_blueprint(libro_bp, url_prefix='/libro')
 
-    from app.taller import bp as taller_bp
-    app.register_blueprint(taller_bp, url_prefix='/taller')
-
-    from app.viaje import bp as viaje_bp
-    app.register_blueprint(viaje_bp, url_prefix='/viaje')
-
     return app
