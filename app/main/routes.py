@@ -7,8 +7,8 @@ def index():
 
 @bp.route('/privacy')
 def privacy():
-    return render_template('privacy.html')
+    return render_template('main/privacy.html')
 
 @bp.route('/terms')
 def terms():
-    return render_template('terms.html')
+    return render_template('main/terms.html')
