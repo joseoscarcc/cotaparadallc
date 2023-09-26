@@ -11,7 +11,7 @@ def index():
     
     return render_template('contacto/contacto.html',title=title)
 
-@app.route('/submit', methods=['POST'])
+@bp.route('/submit', methods=['POST'])
 def submit_form():
     name = request.form['name']
     email = request.form['email']
