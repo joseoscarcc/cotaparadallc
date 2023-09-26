@@ -4,3 +4,11 @@ from app.main import bp
 @bp.route('/')
 def index():
     return render_template('index.html')
+
+@bp.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
+
+@bp.route('/terms')
+def terms():
+    return render_template('terms.html')
