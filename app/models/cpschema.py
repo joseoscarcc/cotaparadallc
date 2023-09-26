@@ -104,3 +104,12 @@ class Status(db.Model):
     status_id = db.Column(db.Integer, primary_key=True)
     status_name = db.Column(db.String)
     # Add other status-related information columns as needed
+
+class Contacto(db.Model):
+    __tablename__ = 'contacto'
+    contact_id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime)
+    name = db.Column(db.String)
+    message = db.Column(db.String)
+    email = db.Column(db.String)
+    phone = db.Column(db.String)

@@ -71,7 +71,6 @@ def cancel():
 
 @bp.route('/webhook', methods=['POST'])
 def webhook():
-    ENDPOINT_SECRET = current_app.config['ENDPOINT_SECRET']
 
     payload = request.data
     sig_header = request.headers.get('Stripe-Signature')
@@ -140,5 +139,3 @@ def fulfill_order(line_items, session_01):
 
     db.session.add(order_item)
     db.session.commit()
-
-    print("Fulfilling order")

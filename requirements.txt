@@ -2,5 +2,6 @@ gunicorn
 flask
 sqlalchemy
 mercadopago
+stripe
 flask_sqlalchemy
 psycopg2

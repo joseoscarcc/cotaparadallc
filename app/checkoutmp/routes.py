@@ -151,5 +151,3 @@ def fulfill_order(payment_id, preorder_id, payment_amount):
 
     db.session.add(order_item)
     db.session.commit()
-
-    print("Fulfilling order")
