@@ -104,8 +104,8 @@ def webhook():
     try:
         if notification_type == 'payment':
             payment = sdk.Payment.find_by_id(data['data']['id'])
-            print(payment)
-            fulfill_order(payment)
+            print(f"a traves del webhook {payment}")
+
 
         elif notification_type == 'plan':
             plan = sdk.Plan.find_by_id(data['data']['id'])
