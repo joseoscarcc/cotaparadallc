@@ -13,9 +13,9 @@ def index():
 
 @bp.route('/submit', methods=['POST'])
 def submit():
-    name = request.form['name']
-    email = request.form['email']
-    phone = request.form['phone']
+    name = request.form['nombre']
+    email = request.form['correo']
+    phone = request.form['telefono']
     message = request.form['message']
 
     # Create an Contacto instance
@@ -32,4 +32,4 @@ def submit():
     db.session.commit()
 
     flash('Forma enviada correctamente')
-    render_template('contacto/contacto.html')
+    return render_template('contacto/contacto.html')
