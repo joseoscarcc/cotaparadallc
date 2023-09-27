@@ -120,7 +120,7 @@ def webhook():
 
 def fulfill_order(payment):
     # Define your MercadoPago API endpoint and access token
-    api_url = 'https://api.mercadopago.com/v1/payments/{payment}'  # Replace {id} with the actual payment ID
+    api_url = f'https://api.mercadopago.com/v1/payments/{payment}'  # Replace {id} with the actual payment ID
    
     # Set up the headers with the Authorization token
     headers = {
