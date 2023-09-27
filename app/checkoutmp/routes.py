@@ -148,6 +148,10 @@ def fulfill_order(payment, external_reference):
             client_reference_id = external_reference
             total_paid_amount = payment_data['transaction_details']['total_paid_amount']
             external_reference = payment_data['external_reference']
+            print(payment_data)
+            print(client_reference_id)
+            print(external_reference)
+            print(total_paid_amount)
             if client_reference_id == external_reference:
                 preorder = Preorder.query.filter_by(preorder_id=client_reference_id).first()
                 book = Book.query.filter_by(book_id=preorder.book_id).first()
