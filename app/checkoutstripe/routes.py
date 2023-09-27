@@ -50,8 +50,8 @@ def cart():
             customer_email = correo,
             client_reference_id=preorder_id,
             invoice_creation={'enabled':True},
-            success_url='http://127.0.0.1:5000/checkoutstripe/success?session_id={CHECKOUT_SESSION_ID}',
-            cancel_url='http://127.0.0.1:5000/checkoutstripe/cancel',
+            success_url='http://cotaparada.com/checkoutstripe/success?session_id={CHECKOUT_SESSION_ID}',
+            cancel_url='http://cotaparada.com/checkoutstripe/cancel',
             automatic_tax={'enabled': True},
         )
     except Exception as e:
