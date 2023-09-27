@@ -1,4 +1,4 @@
-from flask import render_template, jsonify,request
+from flask import render_template,request, flash
 from app.contacto import bp
 from app.extensions import db
 from app.models.cpschema import Contacto
@@ -31,4 +31,5 @@ def submit():
     db.session.add(order)
     db.session.commit()
 
-    return "Thanks for your submission, " + name + "!"
+    flash('Forma enviada correctamente')
+    render_template('contacto/contacto.html')
