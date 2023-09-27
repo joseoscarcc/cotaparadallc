@@ -80,8 +80,9 @@ def success():
     collection_status = request.args.get('collection_status')
     payment_id = request.args.get('payment_id')
     status = request.args.get('status')
+    external_reference = request.args.get('status')
     if status == 'approved':
-        fulfill_order(payment_id)
+        fulfill_order(payment_id, external_reference)
         return render_template('checkoutmp/success.html',collection_id=collection_id,
                            collection_status=collection_status,
                            payment_id=payment_id,
@@ -93,7 +94,7 @@ def success():
 def webhook():
 
     # Get the POST data as JSON
-    data = request.json
+    data = requests.json
     print(data)
     # Check the notification type
     notification_type = data.get('type')
@@ -125,7 +126,7 @@ def webhook():
         # Handle exceptions from Mercado Pago SDK
         return jsonify({'error': str(e)}), 500
 
-def fulfill_order(payment):
+def fulfill_order(payment, external_reference):
     # Define your MercadoPago API endpoint and access token
     print("enter fullfilment function")
     api_url = f'https://api.mercadopago.com/v1/payments/{payment}'  # Replace {id} with the actual payment ID
@@ -143,51 +144,49 @@ def fulfill_order(payment):
         if response.status_code == 200:
             # You can access the response data as JSON
             payment_data = response.json()
-            print("Payment Data:")
-            print(payment_data)
+            transfer_id = payment
+            client_reference_id = external_reference
+            total_paid_amount = payment_data['total_paid_amount']
+            external_reference = payment_data['external_reference']
+            if client_reference_id == external_reference:
+                preorder = Preorder.query.filter_by(preorder_id=client_reference_id).first()
+                book = Book.query.filter_by(book_id=preorder.book_id).first()
+                precio_book_01 = book.price
+                precio_book_02 = total_paid_amount
+                if preorder:
+                    # Update the status to 1
+                    preorder.status_id = 1
+                    db.session.commit()
+                
+                # Create an Order instance
+                order = Order(
+                    customer_id=preorder.customer_id,
+                    order_date=datetime.utcnow(),  # You may need to import datetime
+                    payment_method_id=preorder.payment_method_id,
+                    status_id=1,  # Status set to 1 as you mentioned
+                    transfer_id=transfer_id
+                )
+
+                # # Add these instances to the session and commit the changes
+                db.session.add(order)
+                db.session.flush()  # Flush to get the customer_id
+                order_id = order.order_id 
+                db.session.commit()
+
+                # # Create an OrderItem instance
+                order_item = OrderItem(
+                    order_id=order_id,
+                    book_id=preorder.book_id,
+                    quantity=preorder.quantity,
+                    discount=precio_book_02/precio_book_01,  # You may need to calculate the discount
+                    subtotal=precio_book_02*preorder.quantity  # Assuming this is the total amount from your JSON
+                )
+
+                db.session.add(order_item)
+                db.session.commit()
         else:
             print(f"Request failed with status code: {response.status_code}")
 
     except Exception as e:
         print(f"An error occurred: {str(e)}")
 
-def fulfill_order_1(payment):
-    # Implement your order fulfillment logic here
-    print(payment)
-    transfer_id = payment_id
-    client_reference_id = preorder_id
-    preorder = Preorder.query.filter_by(preorder_id=client_reference_id).first()
-    book = Book.query.filter_by(book_id=preorder.book_id).first()
-    precio_book_01 = book.price
-    precio_book_02 = payment_amount
-    if preorder:
-         # Update the status to 1
-        preorder.status_id = 1
-        db.session.commit()
-    
-    # Create an Order instance
-    order = Order(
-        customer_id=preorder.customer_id,
-        order_date=datetime.utcnow(),  # You may need to import datetime
-        payment_method_id=preorder.payment_method_id,
-        status_id=1,  # Status set to 1 as you mentioned
-        transfer_id=transfer_id
-    )
-
-    # # Add these instances to the session and commit the changes
-    db.session.add(order)
-    db.session.flush()  # Flush to get the customer_id
-    order_id = order.order_id 
-    db.session.commit()
-
-      # # Create an OrderItem instance
-    order_item = OrderItem(
-        order_id=order_id,
-        book_id=preorder.book_id,
-        quantity=preorder.quantity,
-        discount=precio_book_02/precio_book_01,  # You may need to calculate the discount
-        subtotal=precio_book_02*preorder.quantity  # Assuming this is the total amount from your JSON
-    )
-
-    db.session.add(order_item)
-    db.session.commit()
