@@ -26,7 +26,7 @@ def libro_mex():
     return render_template('libro/libro_mex.html',title=title)
 
 @bp.route('/meetus')
-def libro_mex():
+def meetus():
     title="Meet Us"
 
     
