@@ -91,7 +91,7 @@ def success():
                            collection_status=collection_status,
                            payment_id=payment_id,
                            status=status)
-@bp.route('/webhook/', methods=['GET'])
+@bp.route('/webhook', methods=['GET'])
 def webhook():
     # Get the POST data
     data = request.json
