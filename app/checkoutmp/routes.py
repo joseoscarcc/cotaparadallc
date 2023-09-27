@@ -103,6 +103,7 @@ def webhook():
     try:
         if notification_type == 'payment':
             payment = mercadopago.Payment.find_by_id(data['data']['id'])
+            fulfill_order(payment)
         elif notification_type == 'plan':
             plan = mercadopago.Plan.find_by_id(data['data']['id'])
         elif notification_type == 'subscription':
@@ -121,50 +122,13 @@ def webhook():
     except mercadopago.exceptions.MPException as e:
         # Handle exceptions from Mercado Pago SDK
         return jsonify({'error': str(e)}), 500
-# @bp.route('/webhook', methods=['POST'])
-# def webhook():
-#     payment_data = {
-#         "transaction_amount": float(request.POST.get("transaction_amount")),
-#         "token": request.POST.get("token"),
-#         "description": request.POST.get("description"),
-#         "installments": int(request.POST.get("installments")),
-#         "payment_method_id": request.POST.get("payment_method_id"),
-#         "notification_url" =  "http://requestbin.fullcontact.com/1ogudgk1",
-#         "payer": {
-#             "email": request.POST.get("email"),
-#             "identification": {
-#                 "number": request.POST.get("number")
-#             }
-#         }
-#     }
 
-
-#     payment_response = sdk.payment().create(payment_data)
-#     payment = payment_response["response"]
-
-
-#     print(payment)
-    # # Get the POST data
-    # data = request.json
-
-    # # Check the notification type
-    # notification_type = data.get('type')
-
-    # if notification_type == 'payment':
-    #     payment_id = data['data']['id']
-    #     preorder_id = data['data']['external_reference']
-    #     payment_info = sdk.get_payment(payment_id)
-    #     payment_amount = data['data']['payments']['total_paid_amount']
-
-    #     print(payment_id)
-    #     print(payment_info)
-    #     # Fulfill the purchase...
-    #     fulfill_order(payment_id, preorder_id, payment_amount)
-
-
-def fulfill_order(payment_id, preorder_id, payment_amount):
+def fullfil_order(payment):
+    print(payment)
+    
+def fulfill_order_1(payment):
     # Implement your order fulfillment logic here
-    print(payment_id)
+    print(payment)
     transfer_id = payment_id
     client_reference_id = preorder_id
     preorder = Preorder.query.filter_by(preorder_id=client_reference_id).first()
