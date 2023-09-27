@@ -4,6 +4,7 @@ from app.extensions import db
 from app.models.cpschema import Customer, Preorder, Order, OrderItem, Book
 from datetime import datetime
 import mercadopago
+import requests
 import os
 
 MP_TOKEN = os.environ.get('MP_TOKEN')
@@ -136,7 +137,7 @@ def fulfill_order(payment):
 
     # Make the GET request
     try:
-        response = request.get(api_url, headers=headers)
+        response = requests.get(api_url, headers=headers)
 
         # Check if the request was successful (status code 200)
         if response.status_code == 200:
