@@ -80,27 +80,27 @@ def success():
     payment_id = request.args.get('payment_id')
     status = request.args.get('status')
     fulfill_order(payment_id)
-    payment_data = {
-        "transaction_amount": float(request.form.get("transaction_amount")),
-        "token": request.form.get("token"),
-        "description": request.form.get("description"),
-        "installments": int(request.form.get("installments")),
-        "payment_method_id": request.form.get("payment_method_id"),
-        "notification_url": "http://www.cotaparada.com/checkoutmp/webhook",
-        "payer": {
-            "email": request.form.get("email"),
-            "identification": {
-                "number": request.form.get("number")
-            }
-        }
-    }
+    # payment_data = {
+    #     "transaction_amount": float(request.form.get("transaction_amount")),
+    #     "token": request.form.get("token"),
+    #     "description": request.form.get("description"),
+    #     "installments": int(request.form.get("installments")),
+    #     "payment_method_id": request.form.get("payment_method_id"),
+    #     "notification_url": "http://www.cotaparada.com/checkoutmp/webhook",
+    #     "payer": {
+    #         "email": request.form.get("email"),
+    #         "identification": {
+    #             "number": request.form.get("number")
+    #         }
+    #     }
+    # }
 
 
-    payment_response = sdk.payment().create(payment_data)
-    payment = payment_response["response"]
+    # payment_response = sdk.payment().create(payment_data)
+    # payment = payment_response["response"]
 
 
-    print(payment)
+    # print(payment)
 
     return render_template('checkoutmp/success.html',collection_id=collection_id,
                            collection_status=collection_status,
