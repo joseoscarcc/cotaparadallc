@@ -89,14 +89,16 @@ def success():
 def webhook():
     # Get the POST data as JSON
     data = request.json
-
+    print(data)
     # Check the notification type
     notification_type = data.get('type')
+    print(notification_type)
     external_reference = data.get("external_reference")
-
+    print(external_reference)
     try:
         if notification_type == 'payment':
             payment = sdk.Payment.find_by_id(data['data']['id'])
+            print(payment)
             fulfill_order(payment)
 
         elif notification_type == 'plan':
