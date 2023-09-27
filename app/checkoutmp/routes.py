@@ -80,7 +80,7 @@ def success():
     collection_status = request.args.get('collection_status')
     payment_id = request.args.get('payment_id')
     status = request.args.get('status')
-    external_reference = request.args.get('status')
+    external_reference = request.args.get('external_reference')
     if status == 'approved':
         fulfill_order(payment_id, external_reference)
         return render_template('checkoutmp/success.html',collection_id=collection_id,
