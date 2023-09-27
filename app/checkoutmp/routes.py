@@ -146,7 +146,7 @@ def fulfill_order(payment, external_reference):
             payment_data = response.json()
             transfer_id = payment
             client_reference_id = external_reference
-            total_paid_amount = payment_data['total_paid_amount']
+            total_paid_amount = payment_data['transaction_details']['total_paid_amount']
             external_reference = payment_data['external_reference']
             if client_reference_id == external_reference:
                 preorder = Preorder.query.filter_by(preorder_id=client_reference_id).first()
