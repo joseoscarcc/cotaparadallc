@@ -21,32 +21,30 @@
                     <!-- Campo para el nombre -->
                     <div class="form-floating mb-3">
                         <label for="nombre">Name:</label>
-                        <input class="form-control" type="text" id="nombre" name="nombre" required><br><br>
+                        <input class="form-control" type="text" id="nombre" name="nombre" required>
                     </div>
     
                     <!-- Campo para el correo electrónico -->
                     <div class="form-floating mb-3">
                         <label for="correo">Correo Electrónico:</label>
-                        <input class="form-control" type="email" id="correo" name="correo" required><br><br>
+                        <input class="form-control" type="email" id="correo" name="correo" required>
                     </div>
                     
                     
                     <!-- Campo para el teléfono -->
                     <div class="form-floating mb-3">
                         <label for="telefono">Phone number:</label>
-                        <input class="form-control" type="tel" id="telefono" name="telefono" pattern="[0-9]{10}" placeholder="Ejemplo: 1234567890" required><br><br>
+                        <input class="form-control" type="tel" id="telefono" name="telefono" pattern="[0-9]{10}" placeholder="Ejemplo: 1234567890" required>
                     </div>
                     
                     <div class="form-floating mb-3">
-                        <label for="message">Message:</label>
                         <textarea class="form-control" type="text" id="message" name="message" required></textarea>
+                        <label for="message">Message:</label>
                     </div>
                     <!-- Campo para el correo electrónico -->
-                   
-
-              
-                    <input type="submit" value="Send" formaction="{{ url_for('contacto.submit') }}">
-      
+                    <div class="form-floating mb-3">
+                        <input type="submit" value="Send" formaction="{{ url_for('contacto.submit') }}">
+                    </div>
                     
                   </form>
               </div>
