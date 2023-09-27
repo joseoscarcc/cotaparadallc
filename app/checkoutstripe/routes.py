@@ -59,12 +59,12 @@ def cart():
 
     return redirect(checkout_session.url, code=303)
 
-@bp.route('/success/', methods=['GET'])
+@bp.route('/success', methods=['GET'])
 def success():
 
     return render_template('checkoutstripe/success.html')
 
-@bp.route('/cancel/', methods=['GET'])
+@bp.route('/cancel', methods=['GET'])
 def cancel():
 
     return render_template('checkoutstripe/cancel.html')
