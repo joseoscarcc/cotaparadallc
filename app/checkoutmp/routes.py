@@ -57,9 +57,9 @@ def carrito():
         },
     },
     "back_urls": {
-        "success": "http://127.0.0.1:5000/checkoutmp/success",
-        "failure": "http://127.0.0.1:5000/checkoutmp/failure",
-        "pending": "http://127.0.0.1:5000/checkoutmp/pending"
+        "success": "http://www.cotaparada.com/checkoutmp/success",
+        "failure": "http://www.cotaparada.com/checkoutmp/failure",
+        "pending": "http://www.cotaparada.com/checkoutmp/pending"
     },
     "statement_descriptor": "CotaParadaLLC",
     "external_reference": preorder_id,
@@ -104,6 +104,7 @@ def webhook():
         if notification_type == 'payment':
             payment = mercadopago.Payment.find_by_id(data['data']['id'])
             fulfill_order(payment)
+
         elif notification_type == 'plan':
             plan = mercadopago.Plan.find_by_id(data['data']['id'])
         elif notification_type == 'subscription':
@@ -123,9 +124,9 @@ def webhook():
         # Handle exceptions from Mercado Pago SDK
         return jsonify({'error': str(e)}), 500
 
-def fullfil_order(payment):
+def fulfill_order(payment):
     print(payment)
-    
+
 def fulfill_order_1(payment):
     # Implement your order fulfillment logic here
     print(payment)
