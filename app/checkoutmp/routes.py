@@ -63,7 +63,7 @@ def carrito():
     },
     "statement_descriptor": "CotaParadaLLC",
     "external_reference": preorder_id,
-    "notification_url" : "http://requestbin.fullcontact.com/1ogudgk1",
+    "notification_url" : "http://www.cotaparada.com/checkoutmp/webhook",
 }
 
     preference_response = sdk.preference().create(preference_data)
@@ -79,13 +79,6 @@ def success():
     collection_status = request.args.get('collection_status')
     payment_id = request.args.get('payment_id')
     status = request.args.get('status')
-
-    # Now you can use these variables in your code as needed
-    # For example, you can print them to see the values
-    print(f"Collection ID: {collection_id}")
-    print(f"Collection Status: {collection_status}")
-    print(f"Payment ID: {payment_id}")
-    print(f"Status: {status}")
 
     return render_template('checkoutmp/success.html',collection_id=collection_id,
                            collection_status=collection_status,
