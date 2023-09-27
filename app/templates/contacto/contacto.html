@@ -39,15 +39,14 @@
                     
                     <div class="form-floating mb-3">
                         <label for="message">Message:</label>
-                        <textarea class="form-control" type="text" id="message" name="message" required><br><br>
+                        <textarea class="form-control" type="text" id="message" name="message" required></textarea>
                     </div>
                     <!-- Campo para el correo electrónico -->
                    
 
-                      <!-- Botón para enviar el formulario -->
-                      <div class="d-grid">
-                        <input type="submit" value="Send" formaction="{{ url_for('contacto.submit') }}">
-                      </div>
+              
+                    <input type="submit" value="Send" formaction="{{ url_for('contacto.submit') }}">
+      
                     
                   </form>
               </div>
