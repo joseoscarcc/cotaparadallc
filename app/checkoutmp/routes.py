@@ -87,6 +87,27 @@ def success():
 
 @bp.route('/webhook', methods=['POST'])
 def webhook():
+    payment_data = {
+    "transaction_amount": float(request.POST.get("transaction_amount")),
+    "token": request.POST.get("token"),
+    "description": request.POST.get("description"),
+    "installments": int(request.POST.get("installments")),
+    "payment_method_id": request.POST.get("payment_method_id"),
+    "notification_url": "http://www.cotaparada.com/checkoutmp/webhook",  # Use a colon here
+    "payer": {
+        "email": request.POST.get("email"),
+        "identification": {
+            "number": request.POST.get("number")
+        }
+    }
+}
+
+
+    payment_response = sdk.payment().create(payment_data)
+    payment = payment_response["response"]
+
+
+    print(payment)
     # Get the POST data as JSON
     data = request.json
     print(data)
