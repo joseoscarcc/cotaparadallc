@@ -79,33 +79,14 @@ def success():
     collection_status = request.args.get('collection_status')
     payment_id = request.args.get('payment_id')
     status = request.args.get('status')
-    fulfill_order(payment_id)
-    # payment_data = {
-    #     "transaction_amount": float(request.form.get("transaction_amount")),
-    #     "token": request.form.get("token"),
-    #     "description": request.form.get("description"),
-    #     "installments": int(request.form.get("installments")),
-    #     "payment_method_id": request.form.get("payment_method_id"),
-    #     "notification_url": "http://www.cotaparada.com/checkoutmp/webhook",
-    #     "payer": {
-    #         "email": request.form.get("email"),
-    #         "identification": {
-    #             "number": request.form.get("number")
-    #         }
-    #     }
-    # }
-
-
-    # payment_response = sdk.payment().create(payment_data)
-    # payment = payment_response["response"]
-
-
-    # print(payment)
-
-    return render_template('checkoutmp/success.html',collection_id=collection_id,
+    if status == 'approved':
+        fulfill_order(payment_id)
+        return render_template('checkoutmp/success.html',collection_id=collection_id,
                            collection_status=collection_status,
                            payment_id=payment_id,
                            status=status)
+    else:
+        return render_template('checkoutmp/failed.html')
 
 @bp.route('/webhook', methods=['POST'])
 def webhook():
@@ -145,6 +126,7 @@ def webhook():
 
 def fulfill_order(payment):
     # Define your MercadoPago API endpoint and access token
+    print("enter fullfilment function")
     api_url = f'https://api.mercadopago.com/v1/payments/{payment}'  # Replace {id} with the actual payment ID
    
     # Set up the headers with the Authorization token
