@@ -1,4 +1,4 @@
-from flask import render_template, jsonify,request, current_app
+from flask import render_template, jsonify, request
 from app.checkoutmp import bp
 from app.extensions import db
 from app.models.cpschema import Customer, Preorder, Order, OrderItem, Book
@@ -92,18 +92,19 @@ def webhook():
 
     # Check the notification type
     notification_type = data.get('type')
+    external_reference = data.get("external_reference")
 
     try:
         if notification_type == 'payment':
-            payment = mercadopago.Payment.find_by_id(data['data']['id'])
+            payment = sdk.Payment.find_by_id(data['data']['id'])
             fulfill_order(payment)
 
         elif notification_type == 'plan':
-            plan = mercadopago.Plan.find_by_id(data['data']['id'])
+            plan = sdk.Plan.find_by_id(data['data']['id'])
         elif notification_type == 'subscription':
-            subscription = mercadopago.Subscription.find_by_id(data['data']['id'])
+            subscription = sdk.Subscription.find_by_id(data['data']['id'])
         elif notification_type == 'invoice':
-            invoice = mercadopago.Invoice.find_by_id(data['data']['id'])
+            invoice = sdk.Invoice.find_by_id(data['data']['id'])
         elif notification_type == 'point_integration_wh':
             # Handle point integration webhook data
             pass
@@ -118,7 +119,29 @@ def webhook():
         return jsonify({'error': str(e)}), 500
 
 def fulfill_order(payment):
-    print(payment)
+    # Define your MercadoPago API endpoint and access token
+    api_url = 'https://api.mercadopago.com/v1/payments/{payment}'  # Replace {id} with the actual payment ID
+   
+    # Set up the headers with the Authorization token
+    headers = {
+        'Authorization': f'Bearer {MP_TOKEN}'
+    }
+
+    # Make the GET request
+    try:
+        response = request.get(api_url, headers=headers)
+
+        # Check if the request was successful (status code 200)
+        if response.status_code == 200:
+            # You can access the response data as JSON
+            payment_data = response.json()
+            print("Payment Data:")
+            print(payment_data)
+        else:
+            print(f"Request failed with status code: {response.status_code}")
+
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
 
 def fulfill_order_1(payment):
     # Implement your order fulfillment logic here
