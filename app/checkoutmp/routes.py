@@ -72,13 +72,35 @@ def carrito():
 
     return render_template('checkoutmp/checkout.html',preference_id=preference_id,email=correo, MP_TOKEN_DEV=MP_TOKEN_DEV)
 
-@bp.route('/success/', methods=['GET'])
+@bp.route('/success/', methods=['GET', 'POST'])
 def success():
     # Get the values of the query parameters from the URL
     collection_id = request.args.get('collection_id')
     collection_status = request.args.get('collection_status')
     payment_id = request.args.get('payment_id')
     status = request.args.get('status')
+
+    payment_data = {
+        "transaction_amount": float(request.POST.get("transaction_amount")),
+        "token": request.POST.get("token"),
+        "description": request.POST.get("description"),
+        "installments": int(request.POST.get("installments")),
+        "payment_method_id": request.POST.get("payment_method_id"),
+        "notification_url": "http://www.cotaparada.com/checkoutmp/webhook",  # Use a colon here
+        "payer": {
+            "email": request.POST.get("email"),
+            "identification": {
+                "number": request.POST.get("number")
+            }
+        }
+    }
+
+
+    payment_response = sdk.payment().create(payment_data)
+    payment = payment_response["response"]
+
+
+    print(payment)
 
     return render_template('checkoutmp/success.html',collection_id=collection_id,
                            collection_status=collection_status,
@@ -87,27 +109,7 @@ def success():
 
 @bp.route('/webhook', methods=['POST'])
 def webhook():
-    payment_data = {
-    "transaction_amount": float(request.POST.get("transaction_amount")),
-    "token": request.POST.get("token"),
-    "description": request.POST.get("description"),
-    "installments": int(request.POST.get("installments")),
-    "payment_method_id": request.POST.get("payment_method_id"),
-    "notification_url": "http://www.cotaparada.com/checkoutmp/webhook",  # Use a colon here
-    "payer": {
-        "email": request.POST.get("email"),
-        "identification": {
-            "number": request.POST.get("number")
-        }
-    }
-}
 
-
-    payment_response = sdk.payment().create(payment_data)
-    payment = payment_response["response"]
-
-
-    print(payment)
     # Get the POST data as JSON
     data = request.json
     print(data)
