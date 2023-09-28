@@ -69,6 +69,7 @@ def carrito():
 
     preference_response = sdk.preference().create(preference_data)
     preference = preference_response["response"]
+    print(preference)
     preference_id = preference["id"]
 
     return render_template('checkoutmp/checkout.html',preference_id=preference_id,email=correo, MP_TOKEN_DEV=MP_TOKEN_DEV)
