@@ -10,7 +10,7 @@ preference_data = {
         {
             "title": "Preventa Libro Quiero Viajar Más",
             "quantity": 1,
-            "unit_price": 200,
+            "unit_price": 300,
         }
     ]
 }
